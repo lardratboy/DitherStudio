@@ -1,0 +1,871 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\DitherStudio.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\DitherStudio.ico"
+
+IDR_DITHERTYPE          ICON                    "res\\DitherStudioDoc.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
+IDR_ZOOM_TOOLBAR        BITMAP                  "res\\zoom_tb.bmp"
+
+IDR_CUSTOM_LAYOUT       BITMAP                  "res\\custom_l.bmp"
+
+IDR_VIEW_TOOLBAR        BITMAP                  "res\\view_too.bmp"
+
+IDR_ERROR_DIFFUSION_OPTIONS BITMAP                  "res\\mainfram.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_LOAD_IMAGE
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_MATCH_DEPTH
+    SEPARATOR
+    BUTTON      ID_CAPTURE_DITHER_RESULT_AS_DOC
+    BUTTON      ID_SCALE_2X
+    BUTTON      ID_SCALE_3X
+    BUTTON      ID_SWAP_R_AND_B
+    BUTTON      ID_INVERT_COLORS
+    SEPARATOR
+    BUTTON      ID_ISOLATE_UNIQUE_COLORS
+    BUTTON      ID_3X3_PIXEL_NEIGHBORHOOD
+    SEPARATOR
+    BUTTON      ID_2D_PALETTE_MODE
+    BUTTON      ID_3D_PALETTE_MODE
+    BUTTON      ID_OPERATION_A
+    BUTTON      ID_OPERATION_B
+    SEPARATOR
+    BUTTON      ID_ROTATE_COLOR_CHANELS
+    BUTTON      ID_SPREAD_OUT_CHANNELS
+    BUTTON      ID_INTERLEAVE_CHANNELS
+    SEPARATOR
+    BUTTON      ID_CROP_HALF_HORIZONTAL
+    BUTTON      ID_ROTATE_90
+    BUTTON      ID_FLIP_HORIZONTAL
+    BUTTON      ID_FLIP_VERTICAL
+    SEPARATOR
+    BUTTON      ID_R8G8B8
+    BUTTON      ID_R6G6B6
+    BUTTON      ID_R5G6B5
+    BUTTON      ID_R5G5B5
+    BUTTON      ID_R4G4B4
+    BUTTON      ID_R3G4B3
+    BUTTON      ID_R3G3B3
+    BUTTON      ID_R2G3B3
+    BUTTON      ID_R2G3B2
+    BUTTON      ID_R2G2B2
+    BUTTON      ID_R1G2B2
+    BUTTON      ID_R1G2B1
+    BUTTON      ID_R1G1B1
+    SEPARATOR
+    BUTTON      ID_NO_DITHERING
+    SEPARATOR
+    BUTTON      ID_ORDERED_2x2
+    BUTTON      ID_ORDERED_4x4
+    BUTTON      ID_ORDERED_8x8
+    SEPARATOR
+    BUTTON      ID_VERTICAL_MODE
+    BUTTON      ID_SERPENTINE_MODE
+    BUTTON      ID_STYLE_FLOYD_STEINBERG
+    BUTTON      ID_STYLE_JARVIS
+    BUTTON      ID_STYLE_STUCKI
+    BUTTON      ID_STYLE_STEVENSON
+    BUTTON      ID_STYLE_BURKES
+    BUTTON      ID_STYLE_SIERRA
+    BUTTON      ID_STYLE_OTHER_1
+    SEPARATOR
+    BUTTON      ID_AUTO_FOCUS
+    BUTTON      ID_APP_ABOUT
+END
+
+IDR_ZOOM_TOOLBAR TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_VZOOM_1X
+    BUTTON      ID_VZOOM_2X
+    BUTTON      ID_VZOOM_3X
+    BUTTON      ID_VZOOM_4X
+    BUTTON      ID_VZOOM_5X
+    BUTTON      ID_VZOOM_6X
+    BUTTON      ID_VZOOM_7X
+    BUTTON      ID_VZOOM_8X
+    BUTTON      ID_VZOOM_9X
+    BUTTON      ID_VZOOM_10X
+    SEPARATOR
+    BUTTON      ID_VZOOM_INC
+    BUTTON      ID_VZOOM_DEC
+    BUTTON      ID_VZOOM_VISUAL
+END
+
+IDR_CUSTOM_LAYOUT TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_BUTTON32801
+END
+
+IDR_VIEW_TOOLBAR TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_SHOW_DITHERED_IMAGE
+    SEPARATOR
+    BUTTON      ID_VZOOM_INC
+    BUTTON      ID_VZOOM_DEC
+    BUTTON      ID_RESET_3D_VIEW
+    BUTTON      ID_3D_FLIP_FLOP
+    BUTTON      ID_3D_SHOW_UNIQUE
+END
+
+IDR_ERROR_DIFFUSION_OPTIONS TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_USE_NOISE
+    BUTTON      ID_NOISE_LEVEL_1
+    BUTTON      ID_NOISE_LEVEL_2
+    BUTTON      ID_NOISE_LEVEL_3
+    BUTTON      ID_NOISE_LEVEL_4
+    SEPARATOR
+    BUTTON      ID_USE_RESET
+    BUTTON      ID_RESET_LEVEL_1
+    BUTTON      ID_RESET_LEVEL_2
+    BUTTON      ID_RESET_LEVEL_3
+    BUTTON      ID_RESET_LEVEL_4
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About DitherStudio...",      ID_APP_ABOUT
+    END
+END
+
+IDR_DITHERTYPE MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "Load Image...\t'l'",          ID_LOAD_IMAGE
+        MENUITEM "Save dithering as...",        ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Copy dither to clipboard\tCtrl+C", ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+    END
+    POPUP "Colorspace"
+    BEGIN
+        MENUITEM "R8G8B8 (1677216 colors)",     ID_R8G8B8
+        MENUITEM SEPARATOR
+        MENUITEM "R6G6B6 (262144 colors)",      ID_R6G6B6
+        MENUITEM SEPARATOR
+        MENUITEM "R5G6B5 (65536 colors)",       ID_R5G6B5
+        MENUITEM "R5G5B5 (32768 colors)",       ID_R5G5B5
+        MENUITEM "R4G4B4 (4096 colors)",        ID_R4G4B4
+        MENUITEM "R3G4B4 (2048 colors)",        ID_R3G4B4
+        MENUITEM "R3G4B3 (1024 colors)",        ID_R3G4B3
+        MENUITEM "R3G3B3 (512 colors)",         ID_R3G3B3
+        MENUITEM SEPARATOR
+        MENUITEM "R2G3B3 (256 colors)",         ID_R2G3B3
+        MENUITEM "R2G3B2 (128 colors)",         ID_R2G3B2
+        MENUITEM "R2G2B2 (64 colors)",          ID_R2G2B2
+        MENUITEM "R1G2B2 (32 colors)",          ID_R1G2B2
+        MENUITEM "R1G2B1 (16 colors)",          ID_R1G2B1
+        MENUITEM "R1G1B1 (8 colors)",           ID_R1G1B1
+    END
+    POPUP "Image"
+    BEGIN
+        MENUITEM "Capture Dithering As Image",  ID_CAPTURE_DITHER_RESULT_AS_DOC
+        MENUITEM SEPARATOR
+        MENUITEM "Flip Horizontal",             ID_FLIP_HORIZONTAL
+        MENUITEM "Flip Vertical",               ID_FLIP_VERTICAL
+        MENUITEM "Rotate 90",                   ID_ROTATE_90
+        MENUITEM SEPARATOR
+        MENUITEM "Scale Horizontal x2",         ID_SCALE_2X
+        MENUITEM "Scale Horizontal x3",         ID_SCALE_3X
+        MENUITEM SEPARATOR
+        MENUITEM "Invert RGB",                  ID_INVERT_COLORS
+        MENUITEM "Rotate RGB",                  ID_ROTATE_COLOR_CHANELS
+        MENUITEM "Swap R and B",                ID_SWAP_R_AND_B
+        MENUITEM "Swap R and G",                ID_SWAP_R_AND_G
+        MENUITEM SEPARATOR
+        MENUITEM "Not Grayscale",               32901
+        MENUITEM "Desaturate",                  32902
+        MENUITEM SEPARATOR
+        MENUITEM "Split [RGB] <-> [R][G][B]",   ID_SPREAD_OUT_CHANNELS
+        MENUITEM "Interleave [RGB] <-> [R][G][B]", ID_INTERLEAVE_CHANNELS
+        MENUITEM SEPARATOR
+    END
+    POPUP "Dither"
+    BEGIN
+        MENUITEM "No Dithering",                ID_NO_DITHERING
+        MENUITEM SEPARATOR
+        MENUITEM "Ordered 2x2",                 ID_ORDERED_2x2
+        MENUITEM "Ordered 4x4",                 ID_ORDERED_4x4
+        MENUITEM "Ordered 8x8",                 ID_ORDERED_8x8
+        MENUITEM SEPARATOR
+        POPUP "Error Diffusion"
+        BEGIN
+            MENUITEM "Floyd Steinberg",             ID_STYLE_FLOYD_STEINBERG
+            MENUITEM "Jarvis",                      ID_STYLE_JARVIS
+            MENUITEM "Stucki",                      ID_STYLE_STUCKI
+            MENUITEM "Stevenson and Arce",          ID_STYLE_STEVENSON
+            MENUITEM "Burkes",                      ID_STYLE_BURKES
+            MENUITEM "Sierra",                      ID_STYLE_SIERRA
+            MENUITEM "Other",                       ID_STYLE_OTHER_1
+        END
+        POPUP "Noise"
+        BEGIN
+            MENUITEM "Enable Noise",                ID_USE_NOISE
+            MENUITEM SEPARATOR
+            MENUITEM "Noise Level 1",               ID_NOISE_LEVEL_1
+            MENUITEM "Noise Level 2",               ID_NOISE_LEVEL_2
+            MENUITEM "Noise Level 3",               ID_NOISE_LEVEL_3
+            MENUITEM "Noise Level 4",               ID_NOISE_LEVEL_4
+        END
+        POPUP "Reset Error Term"
+        BEGIN
+            MENUITEM "Reset Error Term",            ID_USE_RESET
+            MENUITEM SEPARATOR
+            MENUITEM "Reset Level 1",               ID_RESET_LEVEL_1
+            MENUITEM "Reset Level 2",               ID_RESET_LEVEL_2
+            MENUITEM "Reset Level 3",               ID_RESET_LEVEL_3
+            MENUITEM "Reset Level 4",               ID_RESET_LEVEL_4
+        END
+        MENUITEM "Vertical Mode",               ID_VERTICAL_MODE
+        MENUITEM "Serpentine Mode",             ID_SERPENTINE_MODE
+        MENUITEM "Force Left Facing Mode",      ID_FORCE_LEFT
+    END
+    POPUP "Misc"
+    BEGIN
+        MENUITEM ".xyz Sort Verts And Colors",  ID_MISC_XYZ_SORT_AFTER_LOAD
+        MENUITEM SEPARATOR
+        MENUITEM "Original, Inverse, Difference Triple", ID_MISC_ORIGINAL_INVERSE_DIFFERENCE
+        MENUITEM "Split Bits Into Streams",     ID_MISC_SPLITBITSINTOSTREAMS
+        MENUITEM SEPARATOR
+        MENUITEM "Show Original Positions Of Unique", ID_MISC_SHOWORIGINALPOSITIONSOFUNIQUE
+        MENUITEM "Isolate Unique Colors",       ID_ISOLATE_UNIQUE_COLORS
+        MENUITEM "Sort based on color address", ID_MISC_SORTBASEDONCOLORADDRESS
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM SEPARATOR
+        MENUITEM "Switch View Mode\t'TAB'",     ID_2_VSET_SWITCH_MODE
+        MENUITEM "Center On Cursor\t'n'",       ID_VCMD_CENTER_ON_CURSOR
+        MENUITEM "Zoom Over Cursor\t'm'",       ID_VCMD_CURSOR_ZOOM
+        MENUITEM "Center Other Views OnCursor\t'N'", ID_VCMD_REQUEST_OTHERS_CENTER_ON_CURSOR
+        MENUITEM "Reset 3D Camera",             ID_RESET_3D_VIEW
+        MENUITEM SEPARATOR
+        POPUP "Misc Options"
+        BEGIN
+            MENUITEM "Expand/Contract Window\t(CTRL+SPACE)", ID_VIEW_EXPAND
+            MENUITEM "Autofocus views\t(Alt+a)",    ID_AUTO_FOCUS
+            MENUITEM "Show Fatbits\t(Alt+f)",       ID_VSET_SHOW_FATBITS, GRAYED
+            MENUITEM "Imediate Updates",            ID_VSET_IMEDIATE_UPDATES
+            MENUITEM SEPARATOR
+            MENUITEM "Center Scroll Mode",          ID_VSET_CENTER_SYNC_SCROLL
+            MENUITEM "Disable Autoscroll",          ID_VSET_DISABLE_AUTO_SCROLL
+            MENUITEM SEPARATOR
+            MENUITEM "Show Grid Lines",             ID_VSET_SHOW_GRID, GRAYED
+            MENUITEM SEPARATOR
+            MENUITEM "Zoom Toolbar",                ID_VFRAME_SHOW_ZOOM_TOOLBAR
+            MENUITEM "Shy Zoom Toolbar",            ID_VFRAME_SHY_ZOOM_TOOLBAR
+        END
+        POPUP "Zoom"
+        BEGIN
+            MENUITEM "Zoom x 1",                    ID_VZOOM_1X
+            MENUITEM "Zoom x 2",                    ID_VZOOM_2X
+            MENUITEM "Zoom x 3",                    ID_VZOOM_3X
+            MENUITEM "Zoom x 4",                    ID_VZOOM_4X
+            MENUITEM "Zoom x 5",                    ID_VZOOM_5X
+            MENUITEM "Zoom x 6",                    ID_VZOOM_6X
+            MENUITEM "Zoom x 7",                    ID_VZOOM_7X
+            MENUITEM "Zoom x 8",                    ID_VZOOM_8X
+            MENUITEM "Zoom x 9",                    ID_VZOOM_9X
+            MENUITEM "Zoom x 10",                   ID_VZOOM_10X
+            MENUITEM SEPARATOR
+            MENUITEM "Zoom out\t'<'",               ID_VZOOM_DEC
+            MENUITEM "Zoom in\t'>'",                ID_VZOOM_INC
+        END
+        MENUITEM SEPARATOR
+        POPUP "Layouts"
+        BEGIN
+            MENUITEM "Predefined Layout 0",         ID_DEFAULT_LAYOUT_0
+            MENUITEM "Predefined Layout 1",         ID_DEFAULT_LAYOUT_1
+            MENUITEM "Predefined Layout 2",         ID_DEFAULT_LAYOUT_2
+            MENUITEM SEPARATOR
+            MENUITEM "Custom Layout 1\t(Alt+0)",    ID_CUSTOM_LAYOUT_0
+        END
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&About DitherStudio...",      ID_APP_ABOUT
+        MENUITEM SEPARATOR
+        MENUITEM "&New Window",                 ID_WINDOW_NEW
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
+    END
+END
+
+IDR_MENU1 MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Close",                      ID_FILE_CLOSE
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "A",            ID_AUTO_FOCUS,          VIRTKEY, ALT, NOINVERT
+    "l",            ID_LOAD_IMAGE,          ASCII,  NOINVERT
+    "M",            ID_MATCH_DEPTH,         VIRTKEY, ALT, NOINVERT
+    "n",            ID_VCMD_CENTER_ON_CURSOR, ASCII, NOINVERT
+    "m",            ID_VCMD_CURSOR_ZOOM,    ASCII,  NOINVERT
+    VK_SPACE,       ID_VIEW_EXPAND,         VIRTKEY, CONTROL, NOINVERT
+    "F",            ID_VSET_SHOW_FATBITS,   VIRTKEY, ALT, NOINVERT
+    VK_TAB,         ID_VSET_SWITCH_MODE,    VIRTKEY, NOINVERT
+    "<",            ID_VZOOM_DEC,           ASCII,  NOINVERT
+    ">",            ID_VZOOM_INC,           ASCII,  NOINVERT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About DitherStudio"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "DitherStudio 1.0 (aka DitherBuddy)",IDC_STATIC,40,10,132,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2001-, Brad P. Taylor",IDC_STATIC,40,25,138,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_COPYRIGHT DIALOG 0, 0, 64, 28
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,7,50,14
+END
+
+IDD_HISTOGRAM_VIZ DIALOGEX 0, 0, 221, 193
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Histogram Visualization Options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Histogram Generation Options",IDC_STATIC,7,7,149,56
+    CONTROL         "Store as indices",IDC_HISTOGRAM_STORE_AS_INDICES_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,21,66,10
+    CONTROL         "Write Quantized Values",IDC_HISTOGRAM_WRITE_QUANTIZED_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,33,91,10
+    CONTROL         "Write Chromakey for duplicates",IDC_HISTOGRAM_WRITE_CHROMAKEY__CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,46,117,10
+    GROUPBOX        "Visualization Options",IDC_STATIC,7,68,149,57
+    CONTROL         "Sort Lattice",IDC_VIZ_SORT_LATTICE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,82,53,10
+    CONTROL         "Sort Colors",IDC_VIZ_SORT_COLORS_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,96,51,10
+    CONTROL         "Push Outside Unit Sphere",IDC_VIZ_PUSH_OUTSIDE_UNIT_SPHERE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,110,97,10
+    GROUPBOX        "Save Options",IDC_STATIC,7,129,149,57
+    CONTROL         "Save Visualization As Point Cloud",IDC_SAVE_POINT_CLOUD_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,143,121,10
+    CONTROL         "Use Colors For Both Verts And Colors",IDC_SAVE_COLORS_FOR_BOTH_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,157,135,10
+    CONTROL         "Fibonacci Sphere As Colors",IDC_USE_FIBONACCI_AS_COLORS_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,171,102,10
+    PUSHBUTTON      "Cancel",IDCANCEL,164,24,50,14
+    DEFPUSHBUTTON   "OK",IDOK,164,7,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Brad P. Taylor, LLC"
+            VALUE "FileDescription", "DitherStudio MFC Application"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "DitherStudio"
+            VALUE "LegalCopyright", "Copyright (C) 2001-, Brad P. Taylor, LLC"
+            VALUE "OriginalFilename", "DitherStudio.EXE"
+            VALUE "ProductName", "DitherStudio Application"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_COPYRIGHT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 57
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 21
+    END
+
+    IDD_HISTOGRAM_VIZ, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 214
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 186
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_MOVE_CURSOR         CURSOR                  "res\\move_cur.cur"
+
+IDC_CENTER_OTHERS_POINTER CURSOR                  "others.cur"
+
+IDC_CURSOR1             CURSOR                  "res\\cursor1.cur"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUTBOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_HISTOGRAM_VIZ AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "DitherStudio"
+    IDR_DITHERTYPE          "\nDither\nDither\n\n\nDitherStudio.Document\nDither Document"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "DitherStudio"
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+END
+
+STRINGTABLE
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the dithered image and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+    AFX_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VCMD_CENTER_ON_CURSOR 
+                            "Center view on cursor location\nCenter On Cursor ( n )"
+    ID_VCMD_CURSOR_ZOOM     "Zoom on/off cusror location\nZoom to cursor ( m )"
+    ID_VSET_IMEDIATE_UPDATES "Show changes Imediately\nImediate Updates"
+    ID_VSET_SHOW_FATBITS    "Toggle Fatbits\nToggle Fatbits ( Alt+f )"
+    ID_VSET_SHOW_GRID       "Show Grid Lines\nShow Grid Lines"
+    ID_VCMD_REQUEST_OTHERS_CENTER_ON_CURSOR 
+                            "Center Other Views\nCenter Other Views ( N )"
+    ID_2_VSET_COMPOSITE_MODE "Change view mode"
+    ID_2_VSET_SWITCH_MODE   "Switch View Display Mode\nSwitch View Display Mode ( TAB )"
+    ID_LOAD_IMAGE           "Load an image to dither\nLoad Image ( l )"
+    ID_AUTO_FOCUS           "Toggle Autofocus\nToggle Autofocus ( Alt+a )"
+    ID_VFRAME_SHOW_ZOOM_TOOLBAR "Zoom Toolbar\nZoom Toolbar"
+    ID_VFRAME_SHY_ZOOM_TOOLBAR "Shy Zoom Toolbar\nShy Zoom Toolbar"
+END
+
+STRINGTABLE
+BEGIN
+    ID_CENTER_VIEW          "Center View\nCenter View"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_EXPAND          "Expand/Contract Window\nExpand/Contract Window (SPACE)"
+    ID_R5G5B5               "RGB 555 mode (32768 colors)\nRGB 555 Mode (32768 colors)"
+    ID_R5G6B5               "RGB 565 (65536 colors)\nRGB 565 Mode (65536 colors)"
+    ID_R4G4B4               "RGB 444 mode (4096 colors)\nRGB 444 Mode (4096 colors)"
+    ID_MATCH_DEPTH          "Raw Depth Matches Dither Depth\nMatch Mode (Alt+m)"
+    ID_USE_NOISE            "Use random noise during dither\nNoise ON/OFF"
+    ID_NOISE_LEVEL_1        "Noise level 1\nNoise level 1"
+    ID_NOISE_LEVEL_2        "Noise Level 2\nNoise level 2"
+    ID_NOISE_LEVEL_3        "Noise Level 3\nNoise Level 3"
+    ID_NOISE_LEVEL_4        "Noise Level 4\nNoise Level 4"
+END
+
+STRINGTABLE
+BEGIN
+    ID_USE_RESET            "Use Reset Error Term\nUse Reset Error Term"
+    ID_RESET_LEVEL_1        "Reset Level 1\nReset Level 1"
+    ID_RESET_LEVEL_2        "Reset Level 2\nReset Level 2"
+    ID_RESET_LEVEL_3        "Reset Level 3\nReset Level 3"
+    ID_VERTICAL_MODE        "Dither Vertically\nDither Vertically"
+    ID_SERPENTINE_MODE      "Serpentine Mode\nSerpentine Mode"
+    ID_FORCE_LEFT           "Force Left Facing Dither\nForce Left Facing Dither"
+    ID_STYLE_FLOYD_STEINBERG 
+                            "Floyd-Steinberg Table (1975)\nFloyd-Steinberg Table (1975)"
+    ID_STYLE_JARVIS         "Jarvis, Judice and Ninke Dither (1976)\nJarvis, Judice and Ninke Dither (1976)"
+    ID_STYLE_STUCKI         "Stucki Dither (1981)\nStucki Dither (1981)"
+    ID_STYLE_STEVENSON      "Stevenson and Arce (1985)\nStevenson and Arce (1985)"
+    ID_STYLE_BURKES         "Burkes Dither (19??)\nBurkes Dither (19??)"
+    ID_STYLE_SIERRA         "Sierra Dither (19??)\nSierra Dither (19??)"
+    ID_STYLE_OTHER_1        "Misc 1\nMisc 2"
+END
+
+STRINGTABLE
+BEGIN
+    ID_SHOW_DITHERED_IMAGE  "Show Dithered Version In This View\nShow Dithered Version In This View"
+    ID_ORDERED_2x2          "2x2 Ordered (Bayer 1976?)\n2x2 Ordered (Bayer 1976?)"
+    ID_ORDERED_4x4          "4x4 Ordered (Bayer 1976?)\n4x4 Ordered (Bayer 1976?)"
+    ID_ORDERED_8x8          "8x8 Ordered (Bayer 1976?)\n8x8 Ordered (Bayer 1976?)"
+    ID_R2G3B3               "RGB 233 mode (256 colors)\nRGB 233 Mode (256 colors)"
+    ID_R2G3B2               "RGB 232 mode (128 colors)\nRGB 232 Mode (128 colors)"
+END
+
+STRINGTABLE
+BEGIN
+    ID_R2G2B2               "RGB 222 mode (64 colors)\nRGB 222 Mode (64 colors)"
+    ID_TRUNCATE_RGB_MODE    "Truncate RGB in match mode\nTruncate RGB in match mode"
+    ID_R3G3B3               "RGB 333 mode (512 colors)\nRGB 333 Mode (512 colors)"
+    ID_R3G4B3               "RGB 343 mode (1024 colors)\nRGB 343 Mode (1024 colors)"
+    ID_R3G4B4               "RGB 344 mode (2048 colors)\nRGB 344 Mode (2048 colors)"
+END
+
+STRINGTABLE
+BEGIN
+    ID_R1G2B1               "RGB 121 mode (16 colors)\nRGB 121 Mode (16 colors)"
+    ID_SWAP_R_AND_G         "Swap Red and Green Channels\nSwap Red and Green Channels"
+    ID_INVERT_COLORS        "Invert Colors\nInvert Colors"
+    ID_SWAP_R_AND_B         "Swap Red and Blue Channels\nSwap Red and Blue Channels"
+    ID_R1G1B1               "RGB 111 mode (8 colors)\nRGB 111 Mode (8 colors)"
+    ID_R1G2B2               "RGB 122 mode (32 colors)\nRGB 122 Mode (32 colors)"
+    ID_ROTATE_COLOR_CHANELS "Rotate Color Channels\nRotate Color Channels"
+    ID_SPREAD_OUT_CHANNELS  "Expand [RGB] to [R][G][B]\nExpand [RGB] to [R][G][B]"
+    ID_ROTATE_90            "Rotate 90\nRotate 90"
+    ID_FLIP_HORIZONTAL      "Flip Horizontal\nFlip Horizontal"
+    ID_FLIP_VERTICAL        "Flip Vertical\nFlip Vertical"
+    ID_3X3_PIXEL_NEIGHBORHOOD 
+                            "Make 3x3 neighborhood tiles\nMake 3x3 neighborhood tiles"
+    ID_SCALE_2X             "Scale 2x\nScale 2x"
+    ID_SCALE_3X             "Scale 3x\nScale 3x"
+END
+
+STRINGTABLE
+BEGIN
+    ID_R6G6B6               "RGB 666 (262144 colors)\nRGB 666 Mode (262144 colors)"
+    ID_INTERLEAVE_CHANNELS  "Interleave [RGB] to [R][G][B]\nInterleave [RGB] to [R][G][B]"
+    ID_INTERLEAVED_TO_DOC   "dithered interleaved back to document\ndithered interleaved back to document"
+    ID_2D_PALETTE_MODE      "2D Palette Mode\n2D Palette Mode"
+    ID_3D_PALETTE_MODE      "3D Palette Mode\n3D Palette Mode"
+    ID_NO_DITHERING         "No Dithering Mode\nNo Dithering Mode"
+    ID_REVERSE_INTERLEAVE   "Reverse the interleave and shrink\nReverse the interleave and shrink"
+    ID_CAPTURE_DITHER_RESULT_AS_DOC 
+                            "Capture Dithering Result As Document\nCapture Dithering Result As Document"
+    ID_OPERATION_A          "TODO Operation A\nTODO Operation A"
+    ID_OPERATION_B          "TODO Operation B\nTODO Operation B"
+END
+
+STRINGTABLE
+BEGIN
+    ID_GRAYSCALE            "Not Grayscale RGB -> ?\nNot Grayscale RGB -> ?"
+    ID_DESATURATE           "Desaturate RGB\nDesaturate RGB"
+    ID_R8G8B8               "RGB 888 (16777216 colors)\nRGB 888 Mode (16777216 colors)"
+    ID_ISOLATE_UNIQUE_COLORS "Isolate Unique Colors\nIsolate Unique Colors"
+    ID_RESET_3D_VIEW        "Reset 3D Camera\nReset 3D Camera"
+    ID_3D_FLIP_FLOP         "Mirror Mode Toggle\nMirror Mode Toggle"
+END
+
+STRINGTABLE
+BEGIN
+    ID_3D_SHOW_UNIQUE       "Show Points As Unique Colors\\Show Points As Unique Colors"
+    ID_MISC_XYZ_SORT_AFTER_LOAD ".xyz Sort After Load\n.xyz Sort After Load"
+    ID_MISC_ORIGINAL_INVERSE_DIFFERENCE 
+                            "Original, Inverse, Difference Triple\nOriginal, Inverse, Difference Triple"
+    ID_MISC_SPLITBITSINTOSTREAMS 
+                            "Split Bits Into Streams\nSplit Bits Into Streams"
+    ID_CROP_HALF_HORIZONTAL "Crop to just the left half of the image\nCrop to just the left half of the image"
+    ID_MISC_SORTBASEDONCOLORADDRESS 
+                            "Sort colors using color address\nSort colors using color address"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\DitherStudio.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,1311 @@
+// ----------------------------------------------------------------------------
+/*
+The MIT License (MIT)
+
+Copyright (c) 2000- Brad P. Taylor
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+// ----------------------------------------------------------------------------
+
+#if !defined(AFX_BPTSRL2_H__CCC1EB59_863C_4490_84CA_C1F171D48D87__INCLUDED_)
+#define AFX_BPTSRL2_H__CCC1EB59_863C_4490_84CA_C1F171D48D87__INCLUDED_
+
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+
+// ----------------------------------------------------------------------------
+
+// can be based on CObject for debug memory leak tracking 
+
+// ----------------------------------------------------------------------------
+
+#include <vector>
+#include <utility>
+
+#include "BPTBlitter.h"
+
+// ----------------------------------------------------------------------------
+
+namespace BPT {
+
+	/*
+	* 
+	* THIS CODE IS CURRENTLY BROKEN -
+	* 1) the HandleValueSeekLogic doesn't work as a single pass this needs 2 passes
+	* 2) the starting position isn't currently accounted for it needs to be captured at the start of a line.
+
+	THOUGHTS ON SRL2 - the skip can also indicate a stream rewind/fast-forward
+	(this would probably be effective like a sliding dictionary like compression)
+	Starts getting into T14 teritory where it might be effective since alpha comes
+	into play - of course alpha is a special case in T14 but new states could be
+	added to allow for the same concept as SRL2 - making a further command stream
+	specializations like alpha in this probably would be trivial as well.
+	THINK about this like a little CPU??? with write and move pointer instructions
+	this probably should be it's own framework ? might have already have another
+	one from the GBA source code.
+
+	*/
+
+	struct SRL2BaseObject : public CObject {};
+
+	// ========================================================================
+	// 
+	// SRL2 control BYTE format
+	// 
+	//	xxxxxxx1 == SKIP_PREFIX code of (xxxxxxx sub code defined below) 
+	// 
+	//  (SUBCODE.SRL2) xxxxxx11 == DST SKIP skip for values table skip code of (xxxxxx + 1)
+	//  (SUBCODE.SRL2) xxxxxx01 == VALUE STREAM SHORT SEEK for values table skip code of (xxxxxx - 32) // [-32 to 31]?
+	//  (SUBCODE.SRL2) 00000001 == VALUE STREAM LONG SEEK - next 2 command bytes are an offset (~ +/- 1<<15)
+	// 
+	//	xxxxxx10 == run of (xxxxxx + 1) of the next value in the value stream
+	//  xxxxxx00 == literal run (xxxxxx + 1) of next n values from the stream
+	// 
+	// The stream format varies depending on type that was compressed.
+	// 
+	// ========================================================================
+
+	// ========================================================================
+	// Compress data into code & value streams
+	// ========================================================================
+
+	//
+	//	TSRL2Compressor
+	//
+
+	template< class T >
+	class TSRL2Compressor : public SRL2BaseObject {
+
+	public:
+
+		typedef T VALUE_TYPE;
+		typedef unsigned char CODE_ENTRY;
+		typedef std::vector<VALUE_TYPE> VALUE_COLLECTION;
+		typedef std::vector<CODE_ENTRY> CODE_COLLECTION;
+		typedef std::pair< CODE_COLLECTION, VALUE_COLLECTION* > INFO;
+
+		enum : unsigned {
+
+			SKIP_PREFIX_FLAG	= 0x01
+		,	SKIP_DEST_FLAG		= 0x02
+		,	RUN_FLAG			= 0x02
+
+		};
+
+		enum : unsigned {
+
+			MAX_SKIP_LENGTH		= 63 // needs validation should it be 63 for safety?
+		,	MAX_RUN_LENGTH		= 64
+		,	MAX_LITERAL_LENGTH	= 64
+
+		};
+
+	protected:
+
+		enum RUNTYPE : unsigned {
+
+			SKIP_DEST,
+			STREAM_SEEK,
+			RUN,
+			LITERAL
+
+		};
+
+		void HandleValueSeekLogic(INFO& info, CODE_COLLECTION& out, const int length )
+		{
+#if 1
+			return /* NOP */;
+#else
+			//if (2 > length) return /* NOP */;
+
+			auto it = info.second->begin();
+			auto end = info.second->end();
+
+			auto latest = it + info.second->size() - length;
+
+			// TODO search for the sequence [latest end) in inside [it latest)
+
+			auto found = std::search(it, latest, latest, end);
+
+			if (latest != found)
+			{
+				auto offset = (found - latest);
+
+				//TRACE("found sequence of length %d at offset %d\n", length, offset);
+
+				if ((MAX_SKIP_LENGTH/2) > abs(offset))
+				{
+					out.push_back(((offset+ (MAX_SKIP_LENGTH / 2)) << 2) | (SKIP_PREFIX_FLAG));
+				}
+				else
+				{
+					offset += 1<<15; // move up to (-32k to 32k) to [0 to 64k)
+					out.push_back(SKIP_PREFIX_FLAG); // signal long seek
+					out.push_back((offset >> 8) & 0xff);
+					out.push_back((offset) & 0xff);
+				}
+			}
+#endif
+
+		}
+
+		void EmitCode(INFO& info, CODE_COLLECTION& out, RUNTYPE type, const int length) {
+
+			// ??? TODO verify the -1 the 63 limits above make me think we might be limiting run lengths by 1 (....)
+
+			if (SKIP_DEST == type) {
+
+				out.push_back(((length - 1) << 2) | (SKIP_PREFIX_FLAG | SKIP_DEST_FLAG));
+
+			}
+			else if (RUN == type) {
+
+				out.push_back(((length - 1) << 2) | RUN_FLAG);
+
+			}
+			else { // Literal
+
+				HandleValueSeekLogic(info, out, length);
+
+				out.push_back(((length - 1) << 2));
+
+			}
+
+		}
+
+	public:
+
+		template< class InIt, class Pred >
+		bool operator()(INFO& info, InIt first, InIt last, Pred shouldStore) {
+
+			// Figure out what type of code to start with skip or literal
+			// ----------------------------------------------------------------
+
+			RUNTYPE type;
+
+			InIt it = first;
+
+			T value = *it++;
+
+			int count = 1;
+
+			bool bStore = shouldStore(value);
+
+			if (bStore) {
+
+				type = LITERAL;
+
+				info.second->push_back(value);
+
+			}
+			else {
+
+				type = SKIP_DEST;
+
+			}
+
+			// Run through the remaining values collecting runs
+			// ----------------------------------------------------------------
+
+			while (it != last) {
+
+				bool bLastStore = bStore;
+
+				T lastValue = value;
+
+				value = *it++;
+
+				bStore = shouldStore(value);
+
+				if ((value == lastValue) && (bLastStore == bStore)) {
+
+					if ((LITERAL == type) && (1 != count)) {
+
+						EmitCode(info, info.first, type, count - 1);
+
+						count = 1;
+
+					}
+
+					++count;
+
+					if (bStore) {
+
+						if (count > MAX_RUN_LENGTH) {
+
+							EmitCode(info, info.first, RUN, MAX_RUN_LENGTH);
+
+							info.second->push_back(value);
+
+							type = LITERAL;
+
+							count = 1;
+
+						}
+						else {
+
+							type = RUN;
+
+						}
+
+					}
+					else {
+
+						if (count > MAX_SKIP_LENGTH) {
+
+							EmitCode(info, info.first, SKIP_DEST, MAX_SKIP_LENGTH);
+
+							count = 1;
+
+						}
+
+					}
+
+				}
+				else {
+
+					if ((LITERAL == type) && bStore) {
+
+						info.second->push_back(value);
+
+						++count;
+
+						if (count > MAX_LITERAL_LENGTH) {
+
+							EmitCode(info, info.first, LITERAL, MAX_LITERAL_LENGTH);
+
+							count = 1;
+
+						}
+
+					}
+					else {
+
+						// Add the last 'code' to the codes collection
+
+						EmitCode(info, info.first, type, count);
+
+						// now determine what type of code to start
+
+						count = 1;
+
+						if (bStore) {
+
+							info.second->push_back(value);
+
+							type = LITERAL;
+
+						}
+						else {
+
+							type = SKIP_DEST;
+
+						}
+
+					}
+
+				}
+
+			}
+
+			// Dump the last code to the code collection
+
+			EmitCode(info, info.first, type, count);
+
+			return true;
+
+		}
+
+	}; // class TSRL2Compressor
+
+	// ========================================================================
+	// Decode
+	// ========================================================================
+
+	//
+	//	TDecodeSRL2<>
+	//
+
+	template< class SRL2 >
+	class TDecodeSRL2 : public SRL2BaseObject {
+
+	protected:
+
+	public:
+
+		TDecodeSRL2() { /* Empty */ }
+
+		// --------------------------------------------------------------------
+
+		template<typename W> int ReadLargerSeekValue(W& codes)
+		{
+			return ((*codes++ << 8) | (*codes++)) - (1<<15); // stupid magic values... abstract out
+		}
+
+		template<
+			class DST_IT,
+			class CODE_IT,
+			class VALUE_IT,
+			class TOP
+		>
+			__forceinline void operator()(
+				DST_IT dstIT, CODE_IT codes, VALUE_IT values,
+				int skipCount, int writeCount, TOP top) {
+
+			// Handle any skipping
+			// ----------------------------------------------------------------
+
+			int runCount = 0;
+			int code = 0;
+
+			while (0 < skipCount) {
+
+				int sCode = static_cast<int>(*codes++);
+
+				if (sCode & SRL2::SKIP_PREFIX_FLAG) {
+
+					int subCode = code >> 2; // (sCode & SRL2::SKIP_DEST_FLAG);
+
+					if (SRL2::SKIP_DEST_FLAG & sCode)
+					{
+						runCount = subCode + 1;
+
+						skipCount -= runCount;
+
+						if (0 > skipCount) {
+
+							writeCount += skipCount;
+							dstIT -= skipCount;
+							break;
+
+						}
+
+					}
+					else if (0 != subCode)
+					{
+						int seek = subCode - (SRL2::MAX_SKIP_LENGTH / 2);  // should have another helper function for abstacting away the bias
+						values += seek;
+					}
+					else /* zero flag on a good compiler */
+					{
+						int seek = ReadLargerSeekValue(codes);
+						values += seek;
+					}
+
+				}
+				else if (sCode & SRL2::RUN_FLAG) {
+
+					runCount = (sCode >> 2) + 1;
+
+					skipCount -= runCount;
+
+					if (0 > skipCount) {
+
+						runCount = -skipCount;
+
+						goto HANDLE_RUN;
+
+					}
+
+					++values;
+
+				}
+				else {
+
+					runCount = (sCode >> 2) + 1;
+
+					values += runCount;
+
+					skipCount -= runCount;
+
+					if (0 > skipCount) {
+
+						values += skipCount;
+						runCount = -skipCount;
+						goto HANDLE_LITERAL;
+
+					}
+
+
+				}
+
+			}
+
+			// Finally get down
+			// ----------------------------------------------------------------
+
+			while (0 < writeCount) {
+
+				code = static_cast<int>(*codes++);
+
+				if (code & SRL2::SKIP_PREFIX_FLAG)
+				{
+					int subCode = code >> 2; // (code & SRL2::SKIP_DEST_FLAG);
+
+					if (SRL2::SKIP_DEST_FLAG & code)
+					{
+						runCount = subCode + 1;
+
+						writeCount -= runCount;
+						dstIT += runCount;
+
+					}
+					else if (0 != subCode)
+					{
+						int seek = subCode - (SRL2::MAX_SKIP_LENGTH / 2); // should have another helper function for abstacting away the bias
+						values += seek;
+					}
+					else /* zero flag on a good compiler */
+					{
+						int seek = ReadLargerSeekValue(codes);
+						values += seek;
+					}
+				}
+				else if (code & SRL2::RUN_FLAG) {
+
+					runCount = (code >> 2) + 1;
+
+				HANDLE_RUN:
+
+					typename SRL2::VALUE_TYPE value = *values++;
+
+					writeCount -= runCount;
+
+					if (0 > writeCount) {
+
+						runCount += writeCount;
+
+					}
+
+					top.OutputMajor(dstIT, dstIT + runCount, value);
+					dstIT += runCount;
+
+				}
+				else {
+
+					runCount = (code >> 2) + 1;
+
+				HANDLE_LITERAL:
+
+					writeCount -= runCount;
+
+					if (0 > writeCount) {
+
+						runCount += writeCount;
+
+					}
+
+					top.InputMajor(values, values + runCount, dstIT);
+
+					values += runCount;
+					dstIT += runCount;
+
+				}
+
+			}
+
+		}
+
+		// --------------------------------------------------------------------
+
+		template<
+			class CODE_IT,
+			class VALUE_IT
+		>
+			__forceinline bool HitTest(
+				CODE_IT codes, VALUE_IT values, int skipCount,
+				typename SRL2::VALUE_TYPE* pOptionalOutValue = 0) {
+
+			// Handle any 'skipping' to get to the correct value
+			// ----------------------------------------------------------------
+
+			while (0 < skipCount) {
+
+				int sCode = static_cast<int>(*codes++);
+
+				if (sCode & SRL2::SKIP_PREFIX_FLAG) {
+
+					int subCode = sCode >> 2; // (sCode & SRL2::SKIP_DEST_FLAG);
+
+					if (SRL2::SKIP_DEST_FLAG & sCode)
+					{
+						runCount = subCode + 1;
+
+						skipCount -= runCount;
+
+						if (0 > skipCount) {
+
+							return false;
+
+						}
+
+					}
+					else if (0 != subCode)
+					{
+						int seek = subCode - (MAX_SKIP_LENGTH / 2);
+						values += seek;
+					}
+					else /* zero flag on a good compiler */
+					{
+						int seek = ReadLargerSeekValue(codes);
+						values += seek;
+					}
+
+				}
+				else if (sCode & SRL2::RUN_FLAG) {
+
+					int runCount = (sCode >> 2) + 1;
+
+					skipCount -= runCount;
+
+					if (0 > skipCount) {
+
+						goto HANDLE_RUN;
+
+					}
+
+					++values;
+
+				}
+				else {
+
+					int runCount = (sCode >> 2) + 1;
+
+					values += runCount;
+
+					skipCount -= runCount;
+
+					if (0 > skipCount) {
+
+						values += skipCount;
+
+						goto HANDLE_LITERAL;
+
+					}
+
+
+				}
+
+			}
+
+			// ----------------------------------------------------------------
+
+			int code = static_cast<int>(*codes++);
+
+			if (SRL2::SKIP_PREFIX_FLAG & code) {
+
+				if ( SRL2::SKIP_DEST_FLAG & code ) return false;
+
+				int subCode = code >> 2;
+
+				if (0 != subCode)
+				{
+					int seek = subCode - (MAX_SKIP_LENGTH / 2);
+					values += seek;
+				}
+				else /* zero flag on a good compiler */
+				{
+					int seek = ReadLargerSeekValue(codes);
+					values += seek;
+				}
+
+			}
+
+		HANDLE_RUN:
+		HANDLE_LITERAL:
+
+			if (pOptionalOutValue) {
+
+				*pOptionalOutValue = *values;
+
+			}
+
+			return true;
+
+		}
+
+	}; // class TDecodeSRL2
+
+	// ========================================================================
+	// ========================================================================
+
+	template< class SRL2 >
+	class TSRL2CompressedImage : public SRL2BaseObject {
+
+	public: // Traits
+
+		typedef typename SRL2::VALUE_TYPE storage_type;
+		typedef SRL2 SRL2_type;
+		typedef TSRL2CompressedImage<SRL2> this_type;
+
+	protected: // Data
+
+		typename SRL2_type::VALUE_COLLECTION m_SharedValuesCollection;
+
+		typename SRL2_type::INFO* m_CompressedInfo;
+
+		SIZE m_Size;
+
+		SRL2_type m_Compressor;
+
+		TDecodeSRL2<SRL2> m_Decompressor;
+
+		size_t m_CompressedSizeEstimate;
+
+	public: // Interface
+
+		TSRL2CompressedImage() {
+
+			m_CompressedSizeEstimate = 0;
+
+			m_Size.cx = 0;
+			m_Size.cy = 0;
+
+			m_CompressedInfo = 0;
+
+		};
+
+		~TSRL2CompressedImage() {
+
+			Destroy();
+
+		}
+
+		// --------------------------------------------------------------------
+
+		RECT Rect() const {
+
+			return { 0, 0, m_Size.cx, m_Size.cy };
+
+		}
+
+		SIZE Size() const {
+
+			return m_Size;
+
+		}
+
+		size_t UncompressedSizeEstimate() const {
+
+			return m_Size.cx * m_Size.cy * sizeof(storage_type);
+
+		}
+
+		size_t CompressedSizeEstimate() const {
+
+			return m_CompressedSizeEstimate;
+
+		}
+
+		bool HasData() const {
+
+			return (0 != m_Size.cx) && (0 != m_Size.cy);
+
+		}
+
+		// --------------------------------------------------------------------
+
+		void Destroy() {
+
+			if (m_CompressedInfo) {
+
+				delete[] m_CompressedInfo;
+
+				m_CompressedInfo = 0;
+
+			}
+
+			m_Size.cx = 0;
+			m_Size.cy = 0;
+
+			m_CompressedSizeEstimate = 0;
+			m_SharedValuesCollection.clear();
+
+		}
+
+		// --------------------------------------------------------------------
+
+		template< class SURFACE, class PREDICATE >
+		bool Create(SURFACE& srcSurface, PREDICATE predicate, const RECT* pRect = 0) {
+
+			// Destroy any existing information
+			// ----------------------------------------------------------------
+
+			Destroy();
+
+			// Determine/limit the size of the operation and reserve elements
+			// ----------------------------------------------------------------
+
+			RECT surfaceRect = srcSurface.Rect();
+
+			if (pRect) {
+
+				if (!IntersectRect(&surfaceRect, &surfaceRect, pRect)) {
+
+					return false;
+
+				}
+
+			}
+
+			int cx = surfaceRect.right - surfaceRect.left;
+			int cy = surfaceRect.bottom - surfaceRect.top;
+
+			m_CompressedInfo = new typename SRL2_type::INFO[cy];
+
+			if (!m_CompressedInfo) {
+
+				return false;
+
+			}
+
+			// For each of the lines in the surface call the compressor
+			// ----------------------------------------------------------------
+
+			int codesCount = 0;
+			int valuesCount = 0;
+
+			for (int y = 0; y < cy; y++) {
+
+				m_CompressedInfo[y].second = &m_SharedValuesCollection;
+
+				typename SURFACE::pixel_iterator it = srcSurface.Iterator(
+					surfaceRect.left, y + surfaceRect.top
+				);
+
+				if (!m_Compressor(m_CompressedInfo[y], it, it + cx, predicate)) {
+
+					Destroy();
+
+					return false;
+
+				}
+
+				codesCount += m_CompressedInfo[y].first.size();
+				//valuesCount += m_CompressedInfo[y].second.size();
+
+			}
+
+			valuesCount = m_SharedValuesCollection.size();
+
+			m_CompressedSizeEstimate =
+				(sizeof(typename SRL2_type::INFO) * cy) +
+				(codesCount * sizeof(typename SRL2_type::CODE_ENTRY)) +
+				(valuesCount * sizeof(typename SRL2_type::VALUE_TYPE));
+
+			m_Size.cx = cx;
+			m_Size.cy = cy;
+
+			return true;
+
+		}
+
+		// --------------------------------------------------------------------
+
+		//
+		//	BlitCore
+		//
+		//	-- This can accept other forms of the decompressor!
+		//
+
+		template< class DST_SURFACE, class TOP, class DECOMPRESSOR >
+		void __forceinline BlitCore(
+			DECOMPRESSOR& decompressor,
+			DST_SURFACE& dstSurface
+			, const int x
+			, const int y
+			, TOP op = TOP()
+			, const BLITFX* blitFX = 0
+			, const RECT* optionalDstClipRect = 0
+			, const RECT* optionalSrcSubRect = 0
+		) {
+
+			// Check for an empty bitmap.
+			// ----------------------------------------------------------------
+
+			if ((0 == m_Size.cx) || (0 == m_Size.cy)) {
+
+				return /* NOP */;
+
+			}
+
+			// Clip the optional clipping rect to the dest bitmap limits
+			// ----------------------------------------------------------------
+
+			RECT dstLimitsRect = dstSurface.Rect();
+
+			RECT clippedDstRect;
+
+			if (optionalDstClipRect) {
+
+				if (!IntersectRect(&clippedDstRect, &dstLimitsRect, optionalDstClipRect)) {
+
+					return /* NOP */;
+
+				}
+
+			}
+			else {
+
+				clippedDstRect = dstLimitsRect;
+
+			}
+
+			// Get the source operation size
+			// ----------------------------------------------------------------
+
+			RECT srcLimitsRect = { 0, 0, m_Size.cx, m_Size.cy };
+
+			RECT clippedSrcRect;
+
+			if (optionalSrcSubRect) {
+
+				if (!IntersectRect(&clippedSrcRect, &srcLimitsRect, optionalSrcSubRect)) {
+
+					return /* NOP */;
+
+				}
+
+			}
+			else {
+
+				clippedSrcRect = srcLimitsRect;
+
+			}
+
+			// Perform a simple clipping operation to detect NOP
+			// ----------------------------------------------------------------
+
+			SIZE clippedSrcRectSize = SizeOfRect(&clippedSrcRect);
+
+			RECT dstOperation = {
+				x, y, x + clippedSrcRectSize.cx, y + clippedSrcRectSize.cy
+			};
+
+			RECT clippedRect;
+
+			if (!IntersectRect(&clippedRect, &clippedDstRect, &dstOperation)) {
+
+				return /* NOP */;
+
+			}
+
+			// Setup the general loop variables
+			// ----------------------------------------------------------------
+
+			int cx = clippedRect.right - clippedRect.left;
+			int cy = clippedRect.bottom - clippedRect.top;
+
+			int sx = ((clippedRect.left - x) + clippedSrcRect.left);
+			int sy = ((clippedRect.top - y) + clippedSrcRect.top);
+
+			// Check for flipping and adjust the dest position and step amount.
+			// ----------------------------------------------------------------
+
+			int dx, dy, ddx, ddy;
+
+			if (blitFX) {
+
+				if (BLITFX::HFLIP & blitFX->dwFlags) {
+
+					sx = (clippedSrcRect.right - (sx + cx));
+					dx = (clippedRect.right - 1);
+					ddx = -1;
+
+				}
+				else {
+
+					dx = clippedRect.left;
+					ddx = 1;
+
+				}
+
+				if (BLITFX::VFLIP & blitFX->dwFlags) {
+
+					sy = (clippedSrcRect.bottom - (sy + cy));
+					dy = (clippedRect.bottom - 1);
+					ddy = -1;
+
+				}
+				else {
+
+					dy = clippedRect.top;
+					ddy = 1;
+
+				}
+
+			}
+			else {
+
+				dx = clippedRect.left;
+				ddx = 1;
+
+				dy = clippedRect.top;
+				ddy = 1;
+
+			}
+
+			// Process the non clipped spans
+			// ----------------------------------------------------------------
+
+			if (1 == ddx) {
+
+				for (int ly = 0; ly < cy; ly++) {
+
+					typename DST_SURFACE::pixel_iterator dstIT = dstSurface.Iterator(dx, dy);
+
+					// call the decompressor
+
+					typename SRL2_type::INFO* pInfo = &m_CompressedInfo[sy];
+
+					decompressor(
+						dstIT,
+						pInfo->first.begin(), pInfo->second->begin(),
+						sx, cx, op
+					);
+
+					// advance the locations
+
+					dy += ddy;
+					++sy;
+
+				}
+
+			}
+			else {
+
+				for (int ly = 0; ly < cy; ly++) {
+
+					typename DST_SURFACE::reverse_iterator dstIT = dstSurface.rIterator(dx, dy);
+
+					// call the decompressor
+
+					typename SRL2_type::INFO* pInfo = &m_CompressedInfo[sy];
+
+					decompressor(
+						dstIT,
+						pInfo->first.begin(), pInfo->second->begin(),
+						sx, cx, op
+					);
+
+					// advance the locations
+
+					dy += ddy;
+					++sy;
+
+				}
+
+			}
+
+		}
+
+		// --------------------------------------------------------------------
+
+		template< class DST_SURFACE, class TOP >
+		void __forceinline Blit(
+			DST_SURFACE& dstSurface
+			, const int x
+			, const int y
+			, TOP op = TOP()
+			, const BLITFX* blitFX = 0
+			, const RECT* optionalDstClipRect = 0
+			, const RECT* optionalSrcSubRect = 0
+		) {
+
+			BlitCore(
+				m_Decompressor, dstSurface, x, y, op, blitFX,
+				optionalDstClipRect, optionalSrcSubRect
+			);
+
+		}
+
+		template< class DST_SURFACE, class TOP >
+		void __forceinline Blit(
+			DST_SURFACE* pDstSurface
+			, const int x
+			, const int y
+			, TOP op = TOP()
+			, const BLITFX* blitFX = 0
+			, const RECT* optionalDstClipRect = 0
+			, const RECT* optionalSrcSubRect = 0
+		) {
+
+			Blit(
+				*pDstSurface, x, y, op, blitFX,
+				optionalDstClipRect, optionalSrcSubRect
+			);
+
+		}
+
+		// --------------------------------------------------------------------
+
+		bool HitTest(const int x, const int y, storage_type* pOptionalOutValue = 0) {
+
+			// clip
+			// ----------------------------------------------------------------
+
+			if ((0 > x) || (0 > y) || (x >= m_Size.cx) || (y >= m_Size.cy)) {
+
+				return false;
+
+			}
+
+			// Handle the actual hit test
+			// ----------------------------------------------------------------
+
+			typename SRL2_type::INFO* pInfo = &m_CompressedInfo[y];
+
+			return m_Decompressor.HitTest(
+				pInfo->first.begin(), pInfo->second->begin(), x,
+				pOptionalOutValue
+			);
+
+		}
+
+		// --------------------------------------------------------------------
+
+#if 1 // BPT 5/22/01
+
+		bool SameAs(const this_type* pOther) const {
+
+			// do the simple tests
+			// ----------------------------------------------------------------
+
+			if ((m_Size.cx != pOther->m_Size.cx) || (m_Size.cy != pOther->m_Size.cy)) {
+
+				return false;
+
+			}
+
+			// Use the estimated compressed size as a checksum like value
+			// and return that there isn't a match if the estimated sizes
+			// are different. 
+			// ----------------------------------------------------------------
+
+			if (pOther->CompressedSizeEstimate() && CompressedSizeEstimate()) {
+
+				if (pOther->CompressedSizeEstimate() != CompressedSizeEstimate()) {
+
+					return false;
+
+				}
+
+			}
+
+			if (pOther->m_SharedValuesCollection.size() != m_SharedValuesCollection.size())
+			{
+				return false;
+			}
+
+			// Now start comparing stored data
+			// ----------------------------------------------------------------
+
+			for (int y = 0; y < m_Size.cy; y++) {
+
+				typename SRL2_type::INFO* pInfoA = &m_CompressedInfo[y];
+				typename SRL2_type::INFO* pInfoB = &pOther->m_CompressedInfo[y];
+
+				// Check to see if the collections are the same size if not
+				// there is no match ( early bail out gotta love that :)
+				// ------------------------------------------------------------
+
+				if ((pInfoA->first.size() != pInfoB->first.size())) {
+					//|| (pInfoA->second.size() != pInfoB->second.size())) {
+
+					return false;
+
+				}
+
+				// compare the codes/control for both collections
+				// ------------------------------------------------------------
+
+				//typename SRL2_type::INFO::first_type::iterator 
+				auto codesAIT = pInfoA->first.begin();
+
+				//typename SRL2_type::INFO::first_type::iterator 
+				auto codesBIT = pInfoB->first.begin();
+
+				while (codesAIT != pInfoA->first.end()) {
+
+					// --------------------------------------------------------
+
+					if (*codesAIT++ != *codesBIT++) {
+
+						return false;
+
+					}
+
+				}
+
+				// compare the data for both data collections
+				// ------------------------------------------------------------
+
+#if 1
+				auto dataAIT = m_SharedValuesCollection.begin();
+				auto dataBIT = other->m_SharedValuesCollection.begin();
+
+				while (dataAIT != m_SharedValuesCollection.end())
+				{
+					if (*datAIT++ != *dataBIT++)
+					{
+						return false;
+					}
+				}
+
+#else
+
+				typename SRL2_type::INFO::second_type::iterator dataAIT = pInfoA->second->begin();
+
+				typename SRL2_type::INFO::second_type::iterator dataBIT = pInfoB->second->begin();
+
+				while (dataAIT != pInfoA->second->end()) {
+
+					// --------------------------------------------------------
+
+					if (*dataAIT++ != *dataBIT++) {
+
+						return false;
+
+					}
+
+				}
+
+#endif
+
+			}
+
+			// If we've gotten here then it must be the same
+			// ----------------------------------------------------------------
+
+			return true;
+
+		}
+
+#endif // BPT 5/22/01
+
+		// --------------------------------------------------------------------
+
+		//
+		//	CreatePackedSurface()
+		//
+
+		template<typename S>
+		bool CreatePackedSurface(S& surface, bool bCreateWideSurface = false)
+		{
+			do {
+
+				if (!HasData()) break;
+
+				// count the values
+
+#if 1
+
+				size_t total = m_SharedValuesCollection.size();
+
+#else
+
+				size_t total = 0;
+
+				for (int y = 0; y < this->m_Size.cy; y++) {
+
+					typename SRL2_type::INFO* pInfo = &m_CompressedInfo[y];
+
+					total += pInfo->second.size();
+
+				}
+
+#endif
+
+				size_t sq = (size_t)std::floor(std::sqrt(total) + 0.5) + 1; // just make sure we have more than enough space (wasteful and kind of silly)
+
+				size_t sqTotal = sq * sq;
+
+				if (!surface.Create(sq, sq))
+				{
+					ASSERT(false);
+					break;
+				}
+
+				if (sqTotal > total)
+				{
+					// this clears the entire surface when there is probably only a few pixels (wasteful)
+					surface.ClearBuffer(0);
+				}
+
+				// making an assumption about the surface memory layout (need a 2D iterator for surfaces...)
+
+				auto pWriter = surface.Iterator(0, 0);
+
+#if 1
+				std::copy(m_SharedValuesCollection.begin(), m_SharedValuesCollection.end(), pWriter);
+#else
+
+				size_t wrote = 0;
+
+				for (int y = 0; y < this->m_Size.cy; y++) {
+
+					typename SRL2_type::INFO* pInfo = &m_CompressedInfo[y];
+
+					std::copy(pInfo->second.begin(), pInfo->second.end(), pWriter);
+
+					int count = pInfo->second.size();
+
+					pWriter += count;
+					wrote += count;
+
+				}
+
+				ASSERT(wrote == total);
+
+#endif
+
+				return true;
+
+			} while (false);
+
+			// fall back to creating a 1x1 black surface 
+
+			if (surface.Create(1, 1))
+			{
+				surface.ClearBuffer(0);
+				return true;
+			}
+
+			return false;
+		}
+
+
+		// --------------------------------------------------------------------
+
+#if 0
+
+		// TODO :-)
+
+		bool SaveTo(class CShowcaseFileIO* io);
+		bool LoadFrom(class CShowcaseFileIO* io);
+
+#endif
+
+	}; // class
+
+} // namespace BPT
+
+#endif // !defined(AFX_BPTSRL2_H__CCC1EB59_863C_4490_84CA_C1F171D48D87__INCLUDED_)

@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{dbcebf99-ccf1-4611-90a8-d6297eec9a0c}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Toolbar Bitmaps">
+      <UniqueIdentifier>{084fdf50-0fae-400d-9113-de39f1705bb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Icons">
+      <UniqueIdentifier>{e6198356-1bb3-4bd4-a4e8-c02ff24f4c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BPaint based code">
+      <UniqueIdentifier>{03cf3db5-6edf-4a52-9b3a-093222350211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views">
+      <UniqueIdentifier>{60f4456f-12be-47e1-ac1f-1e3ac584bc7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Frame Windows">
+      <UniqueIdentifier>{74f9fd97-5b6b-4bff-8592-834842e40ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Doc &amp; App">
+      <UniqueIdentifier>{795e3d8a-f9f1-472a-9e14-f7e0f4a2f5f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Misc">
+      <UniqueIdentifier>{c8d8a0af-42da-4822-a009-2bca4550cc94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Source">
+      <UniqueIdentifier>{75f539c6-eb19-4119-b6cc-88667cf1fff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dither Logic">
+      <UniqueIdentifier>{844fc8e3-9955-48c4-8e69-a018edbdc0cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BPTLib">
+      <UniqueIdentifier>{092f1843-4b7d-4d9b-8641-db090fa970f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialogs">
+      <UniqueIdentifier>{0abdbe21-964e-4528-bfa3-189763e9c079}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DitherStudio.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\DitherStudio.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\cursor1.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\move_cur.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="others.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\DitherStudioDoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\custom_l.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\view_too.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Resource Files\Toolbar Bitmaps</Filter>
+    </Image>
+    <Image Include="res\zoom_tb.bmp">
+      <Filter>Resource Files\Toolbar Bitmaps</Filter>
+    </Image>
+    <Image Include="res\DitherStudio.ico">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
+    <Image Include="res\mainfram.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BpaintStuff\BPTBitmap.h">
+      <Filter>BPaint based code</Filter>
+    </ClInclude>
+    <ClInclude Include="BpaintStuff\BPTBlitter.h">
+      <Filter>BPaint based code</Filter>
+    </ClInclude>
+    <ClInclude Include="BpaintStuff\BPTDib.h">
+      <Filter>BPaint based code</Filter>
+    </ClInclude>
+    <ClInclude Include="BpaintStuff\BPTDrawingAlgorithms.h">
+      <Filter>BPaint based code</Filter>
+    </ClInclude>
+    <ClInclude Include="BpaintStuff\BPTPrimitives.h">
+      <Filter>BPaint based code</Filter>
+    </ClInclude>
+    <ClInclude Include="BpaintStuff\BPTRasterOps.h">
+      <Filter>BPaint based code</Filter>
+    </ClInclude>
+    <ClInclude Include="BpaintStuff\BPTUtility.h">
+      <Filter>BPaint based code</Filter>
+    </ClInclude>
+    <ClInclude Include="DitherStudioView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildFrm.h">
+      <Filter>Frame Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Frame Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="DitherStudio.h">
+      <Filter>Doc &amp; App</Filter>
+    </ClInclude>
+    <ClInclude Include="DitherStudioDoc.h">
+      <Filter>Doc &amp; App</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleErrorDiffusion.h">
+      <Filter>Dither Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\Pixels.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLLC_DitherBuddyOrdered.h">
+      <Filter>Dither Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="DitherBuddy.h">
+      <Filter>Dither Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="TScaleUpBlit.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="TiledBitmapHelpers.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\TPSDFileCode.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\TMultiChannelSurface.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\THelpers.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\TQuad.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\TTriangle.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BpaintStuff\BPTSRL.h">
+      <Filter>BPaint based code</Filter>
+    </ClInclude>
+    <ClInclude Include="CBasicFileIO.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="VariousOperationsThatNeedAHome.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="TPixelTree.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="TStereographicOperations.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTSRL2.h">
+      <Filter>BPaint based code</Filter>
+    </ClInclude>
+    <ClInclude Include="TQuantizedHistogram.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="TFibonacciSphereOperations.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="TNSphereOperations.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="TWavefrontOBJOperations.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="TFace3Vector3.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\TFVF.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\TFVFFilters.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\TLerp.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="C3DOBJView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTLib\GLContext.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="CHistogramVizDlg.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="CSimpleHeightmap.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MiscPointCloudStuff.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="TBoxOfBoxes.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleEntitySystem.h">
+      <Filter>BPTLib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DitherStudioView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildFrm.cpp">
+      <Filter>Frame Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Frame Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="DitherStudio.cpp">
+      <Filter>Doc &amp; App</Filter>
+    </ClCompile>
+    <ClCompile Include="DitherStudioDoc.cpp">
+      <Filter>Doc &amp; App</Filter>
+    </ClCompile>
+    <ClCompile Include="UILayoutCode.cpp">
+      <Filter>Doc &amp; App</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleErrorDiffusion.cpp">
+      <Filter>Dither Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="BPTLLC_DitherBuddyOrdered.cpp">
+      <Filter>Dither Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="DitherBuddy.cpp">
+      <Filter>Dither Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="C3DOBJView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="CHistogramVizDlg.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleEntitySystem.cpp">
+      <Filter>BPTLib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>Misc</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
