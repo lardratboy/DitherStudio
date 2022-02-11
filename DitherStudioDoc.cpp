@@ -3229,11 +3229,13 @@ void CDitherStudioDoc::OnIsolateUniqueColors()
 
 	// TODO - make m_bKeepIsolatedColorsInPlace work!!
 
-	quantizer_op_t builder(quantizer_op_t::histogram_t::Options::WRITE_CHROMAKEY_FOR_DUPLICATES);
+	auto quantBuildOptions = quantizer_op_t::histogram_t::Options::WRITE_CHROMAKEY_FOR_DUPLICATES;
+
+	quantizer_op_t builder(quantBuildOptions);
 	//quantizer_op_t builder(quantizer_op_t::histogram_t::Options::WRITE_QUANTIZED_VALUES);
 	//quantizer_op_t builder(quantizer_op_t::histogram_t::Options::STORE_AS_INDICES);
 
-	bool bResult = builder.Create(*m_DitherDib.GetBitmapPtr(), pixel_type(255, 0, 255));
+	bool bResult = builder.Create(*m_DitherDib.GetBitmapPtr(), pixel_type(255, 0, 255), m_bKeepIsolatedColorsInPlace);
 
 	ASSERT(bResult);
 

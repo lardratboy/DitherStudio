@@ -104,11 +104,6 @@ BEGIN
     BUTTON      ID_INVERT_COLORS
     SEPARATOR
     BUTTON      ID_ISOLATE_UNIQUE_COLORS
-    BUTTON      ID_3X3_PIXEL_NEIGHBORHOOD
-    SEPARATOR
-    BUTTON      ID_2D_PALETTE_MODE
-    BUTTON      ID_3D_PALETTE_MODE
-    BUTTON      ID_OPERATION_A
     BUTTON      ID_OPERATION_B
     SEPARATOR
     BUTTON      ID_ROTATE_COLOR_CHANELS
@@ -139,16 +134,6 @@ BEGIN
     BUTTON      ID_ORDERED_2x2
     BUTTON      ID_ORDERED_4x4
     BUTTON      ID_ORDERED_8x8
-    SEPARATOR
-    BUTTON      ID_VERTICAL_MODE
-    BUTTON      ID_SERPENTINE_MODE
-    BUTTON      ID_STYLE_FLOYD_STEINBERG
-    BUTTON      ID_STYLE_JARVIS
-    BUTTON      ID_STYLE_STUCKI
-    BUTTON      ID_STYLE_STEVENSON
-    BUTTON      ID_STYLE_BURKES
-    BUTTON      ID_STYLE_SIERRA
-    BUTTON      ID_STYLE_OTHER_1
     SEPARATOR
     BUTTON      ID_AUTO_FOCUS
     BUTTON      ID_APP_ABOUT
@@ -292,38 +277,6 @@ BEGIN
         MENUITEM "Ordered 2x2",                 ID_ORDERED_2x2
         MENUITEM "Ordered 4x4",                 ID_ORDERED_4x4
         MENUITEM "Ordered 8x8",                 ID_ORDERED_8x8
-        MENUITEM SEPARATOR
-        POPUP "Error Diffusion"
-        BEGIN
-            MENUITEM "Floyd Steinberg",             ID_STYLE_FLOYD_STEINBERG
-            MENUITEM "Jarvis",                      ID_STYLE_JARVIS
-            MENUITEM "Stucki",                      ID_STYLE_STUCKI
-            MENUITEM "Stevenson and Arce",          ID_STYLE_STEVENSON
-            MENUITEM "Burkes",                      ID_STYLE_BURKES
-            MENUITEM "Sierra",                      ID_STYLE_SIERRA
-            MENUITEM "Other",                       ID_STYLE_OTHER_1
-        END
-        POPUP "Noise"
-        BEGIN
-            MENUITEM "Enable Noise",                ID_USE_NOISE
-            MENUITEM SEPARATOR
-            MENUITEM "Noise Level 1",               ID_NOISE_LEVEL_1
-            MENUITEM "Noise Level 2",               ID_NOISE_LEVEL_2
-            MENUITEM "Noise Level 3",               ID_NOISE_LEVEL_3
-            MENUITEM "Noise Level 4",               ID_NOISE_LEVEL_4
-        END
-        POPUP "Reset Error Term"
-        BEGIN
-            MENUITEM "Reset Error Term",            ID_USE_RESET
-            MENUITEM SEPARATOR
-            MENUITEM "Reset Level 1",               ID_RESET_LEVEL_1
-            MENUITEM "Reset Level 2",               ID_RESET_LEVEL_2
-            MENUITEM "Reset Level 3",               ID_RESET_LEVEL_3
-            MENUITEM "Reset Level 4",               ID_RESET_LEVEL_4
-        END
-        MENUITEM "Vertical Mode",               ID_VERTICAL_MODE
-        MENUITEM "Serpentine Mode",             ID_SERPENTINE_MODE
-        MENUITEM "Force Left Facing Mode",      ID_FORCE_LEFT
     END
     POPUP "Misc"
     BEGIN
@@ -412,6 +365,42 @@ BEGIN
         MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+END
+
+IDR_UNUSED_MENU2 MENU
+BEGIN
+    POPUP "Error Diffusion"
+    BEGIN
+        MENUITEM "Floyd Steinberg",             ID_STYLE_FLOYD_STEINBERG
+        MENUITEM "Jarvis",                      ID_STYLE_JARVIS
+        MENUITEM "Stucki",                      ID_STYLE_STUCKI
+        MENUITEM "Stevenson and Arce",          ID_STYLE_STEVENSON
+        MENUITEM "Burkes",                      ID_STYLE_BURKES
+        MENUITEM "Sierra",                      ID_STYLE_SIERRA
+        MENUITEM "Other",                       ID_STYLE_OTHER_1
+        MENUITEM SEPARATOR
+        POPUP "Noise"
+        BEGIN
+            MENUITEM "Enable Noise",                ID_USE_NOISE
+            MENUITEM SEPARATOR
+            MENUITEM "Noise Level 1",               ID_NOISE_LEVEL_1
+            MENUITEM "Noise Level 2",               ID_NOISE_LEVEL_2
+            MENUITEM "Noise Level 3",               ID_NOISE_LEVEL_3
+            MENUITEM "Noise Level 4",               ID_NOISE_LEVEL_4
+        END
+        POPUP "Reset Error Term"
+        BEGIN
+            MENUITEM "Reset Error Term",            ID_USE_RESET
+            MENUITEM SEPARATOR
+            MENUITEM "Reset Level 1",               ID_RESET_LEVEL_1
+            MENUITEM "Reset Level 2",               ID_RESET_LEVEL_2
+            MENUITEM "Reset Level 3",               ID_RESET_LEVEL_3
+            MENUITEM "Reset Level 4",               ID_RESET_LEVEL_4
+        END
+        MENUITEM "Vertical Mode",               ID_VERTICAL_MODE
+        MENUITEM "Serpentine Mode",             ID_SERPENTINE_MODE
+        MENUITEM "Force Left Facing Mode",      ID_FORCE_LEFT
     END
 END
 
@@ -816,7 +805,7 @@ BEGIN
     ID_CAPTURE_DITHER_RESULT_AS_DOC 
                             "Capture Dithering Result As Document\nCapture Dithering Result As Document"
     ID_OPERATION_A          "TODO Operation A\nTODO Operation A"
-    ID_OPERATION_B          "TODO Operation B\nTODO Operation B"
+    ID_OPERATION_B          "Visualization Operations\nVisualization Operations"
 END
 
 STRINGTABLE

@@ -229,7 +229,7 @@ namespace BPT {
 		{
 		}
 
-		bool Create(SOURCE& source, source_pixel_type chromakey)
+		bool Create(SOURCE& source, source_pixel_type chromakey, bool bKeepModifiedOriginal )
 		{
 			typename SOURCE::default_transfer_op top;
 
@@ -273,22 +273,36 @@ namespace BPT {
 
 			if (pCompressedResult->CreatePackedSurface(packedSurface))
 			{
-				bool bResult = pModifiedSourceCopy->Create(
-					packedSurface.Width() + source.Width(),
-					packedSurface.Height() + source.Height()
-				);
+				if (bKeepModifiedOriginal)
+				{
+					bool bResult = pModifiedSourceCopy->Create(
+						packedSurface.Width() + source.Width(),
+						packedSurface.Height() + source.Height()
+					);
 
-				ASSERT(bResult);
+					ASSERT(bResult);
 
-				pModifiedSourceCopy->ClearBuffer(histogram.chromakey);
+					pModifiedSourceCopy->ClearBuffer(histogram.chromakey);
 
-				// put palette in place
+					// put palette in place
 
-				T_Blit(*pModifiedSourceCopy, 0, 0, packedSurface, top);
+					T_Blit(*pModifiedSourceCopy, 0, 0, packedSurface, top);
 
-				// now put the in place unique colors in place
+					// now put the in place unique colors in place
 
-				pCompressedResult->Blit(*pModifiedSourceCopy, packedSurface.Width(), packedSurface.Height(), top);
+					pCompressedResult->Blit(*pModifiedSourceCopy, packedSurface.Width(), packedSurface.Height(), top);
+				}
+				else
+				{
+					bool bResult = pModifiedSourceCopy->Create(
+						packedSurface.Width(), packedSurface.Height()
+					);
+
+					ASSERT(bResult);
+
+					T_Blit(*pModifiedSourceCopy, 0, 0, packedSurface, top);
+				}
+
 			}
 			else
 			{

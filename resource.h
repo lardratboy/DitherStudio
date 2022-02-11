@@ -15,6 +15,8 @@
 #define IDR_ERROR_DIFFUSION_OPTIONS     146
 #define IDC_CURSOR1                     147
 #define IDD_HISTOGRAM_VIZ               148
+#define IDR_MENU2                       150
+#define IDR_UNUSED_MENU2                150
 #define IDC_HISTOGRAM_STORE_AS_INDICES_CHECK 1002
 #define IDC_VIZ_SORT_LATTICE_CHECK      1004
 #define IDC_VIZ_SORT_COLORS_CHECK       1005
@@ -156,7 +158,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        150
+#define _APS_NEXT_RESOURCE_VALUE        151
 #define _APS_NEXT_COMMAND_VALUE         32922
 #define _APS_NEXT_CONTROL_VALUE         1014
 #define _APS_NEXT_SYMED_VALUE           101
