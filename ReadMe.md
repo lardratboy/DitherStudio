@@ -10,4 +10,12 @@ glm
 boost
 angle
 
+For non-windows users here are some related *Online* tools that have similar usage. These are all client side processing tools so your data stays on your machine, I have found them to be useful replacements, please leave feedback or better give it a like so I know people are finding them useful.
+
+* DataPrism - [https://codepen.io/lardratboy/full/QwwrXKb](https://codepen.io/lardratboy/full/QwwrXKb)
+* Dither testbed - [https://codepen.io/lardratboy/pen/ogvgOqB](https://codepen.io/lardratboy/full/ogvgOqB)
+* B2PLY - [https://codepen.io/lardratboy/full/GggvVjz](https://codepen.io/lardratboy/full/GggvVjz)
+* YADV - [https://codepen.io/lardratboy/full/XJrJpQw](https://codepen.io/lardratboy/full/XJrJpQw)
+* Quantized data mirror - [https://codepen.io/lardratboy/pen/OPyPReb](https://codepen.io/lardratboy/pen/OPyPReb)
+
 --BPT
