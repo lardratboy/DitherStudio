@@ -17,5 +17,6 @@ For non-windows users here are some related *Online* tools that have similar usa
 * B2PLY - [https://codepen.io/lardratboy/full/GggvVjz](https://codepen.io/lardratboy/full/GggvVjz)
 * YADV - [https://codepen.io/lardratboy/full/XJrJpQw](https://codepen.io/lardratboy/full/XJrJpQw)
 * Quantized data mirror - [https://codepen.io/lardratboy/full/OPyPReb](https://codepen.io/lardratboy/full/OPyPReb)
+* Image Color Isolation Tool - [https://codepen.io/lardratboy/full/jEbrVer](https://codepen.io/lardratboy/full/jEbrVer)
 
 --BPT
