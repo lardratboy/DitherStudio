@@ -1,6 +1,7 @@
 I no longer have a windows machine, so I've been slowly making *Online* replacement tools that have similar usage. Like DitherStudio these are all client side processing tools so your data stays on your machine, I have found them to be useful replacements for what I used DitherStudio for, please leave feedback or better give it a like so I know people are finding them useful.
 
 * DataPrism - [https://codepen.io/lardratboy/full/QwwrXKb](https://codepen.io/lardratboy/full/QwwrXKb)
+* Stratum Tool - [https://lardratboy.github.io/nested/nested6(wgpu).html](https://lardratboy.github.io/nested/nested6(wgpu).html)
 * Dither testbed - [https://codepen.io/lardratboy/pen/ogvgOqB](https://codepen.io/lardratboy/full/ogvgOqB)
 * B2PLY - [https://codepen.io/lardratboy/full/NPGQPJq](https://codepen.io/lardratboy/full/NPGQPJq)
 * YADV - [https://codepen.io/lardratboy/full/XJrJpQw](https://codepen.io/lardratboy/full/XJrJpQw)
